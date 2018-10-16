@@ -1,9 +1,25 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import logo from "./logo.svg";
+import "./App.css";
+
+const API = "http://www.json-generator.com/api/json/get/bQJcQFdAGG?indent=4";
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      cars: []
+    };
+  }
+
+  componentDidMount() {
+    fetch(API)
+      .then(res => res.json())
+      .then(data => this.setState({ cars: data }));
+  }
+
   render() {
+    console.log("Cars: ", this.state.cars);
     return (
       <div className="App">
         <header className="App-header">
