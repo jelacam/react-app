@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import logo from "./logo.svg";
 import "./App.css";
+import Cars from "./components/Cars";
 
 const API = "http://www.json-generator.com/api/json/get/bQJcQFdAGG?indent=4";
 
@@ -19,25 +20,9 @@ class App extends Component {
   }
 
   render() {
-    console.log("Cars: ", this.state.cars);
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
+    const { cars } = this.state;
+    console.log("cars data: ", cars);
+    return <div>{cars.data && <Cars carsList={cars.data} />}</div>;
   }
 }
 
