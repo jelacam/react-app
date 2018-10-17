@@ -11,10 +11,9 @@ class App extends Component {
     this.state = {
       cars: [],
       displayedCars: [],
-      searchTerm: ""
+      searchTerm: "",
+      selected: []
     };
-
-    this.handleSearch = this.handleSearch.bind(this);
   }
 
   componentDidMount() {
@@ -30,12 +29,16 @@ class App extends Component {
     return (
       <div>
         <Search handleSearch={this.handleSearch} />
-        {displayedCars && <Cars carsList={displayedCars} />}
+        <h2>Cars</h2>
+        {displayedCars && (
+          <Cars carsList={displayedCars} onSelect={this.handleSelect} />
+        )}
+        <h2> Selected </h2>
       </div>
     );
   }
 
-  handleSearch(token) {
+  handleSearch = token => {
     console.log("Search token: ", token);
     let carsToFilter = [...this.state.cars];
     carsToFilter = carsToFilter.filter(car => {
@@ -43,7 +46,19 @@ class App extends Component {
     });
 
     this.setState({ displayedCars: carsToFilter });
-  }
+  };
+
+  handleSelect = id => {
+    let selected = [...this.state.selected];
+    if (selected.indexOf(id) > -1) {
+      selected.pop(id);
+    } else {
+      selected.push(id);
+    }
+    console.log("Selected count: ", selected.length);
+
+    this.setState({ selected: selected });
+  };
 }
 
 export default App;

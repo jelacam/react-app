@@ -1,6 +1,29 @@
 import React, { Component } from "react";
 
 class Car extends Component {
+  constructor() {
+    super();
+    this.state = {
+      isSelected: false
+    };
+  }
+
+  handleInputChange = event => {
+    const { car, onSelect } = this.props;
+
+    const target = event.target;
+    const value = target.type === "checkbox" ? target.checked : target.value;
+    const name = target.name;
+
+    this.setState({
+      [name]: value
+    });
+
+    if (target.type === "checkbox") {
+      onSelect(car.id);
+    }
+  };
+
   render() {
     const { car } = this.props;
     return (
@@ -12,6 +35,12 @@ class Car extends Component {
           <img className="card-img-top" src={car.image} alt={car.name} />
           <div className="card-body">
             <h5 className="card-title">{car.name}</h5>
+            <input
+              name="isSelected"
+              type="checkbox"
+              checked={this.state.isSelected}
+              onChange={this.handleInputChange}
+            />
           </div>
         </div>
       </div>
