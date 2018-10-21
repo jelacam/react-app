@@ -1,26 +1,14 @@
 import React, { Component } from "react";
 
 class Car extends Component {
-  constructor() {
-    super();
-    this.state = {
-      isSelected: false
-    };
-  }
-
   handleInputChange = event => {
     const { car, onSelect } = this.props;
 
     const target = event.target;
     const value = target.type === "checkbox" ? target.checked : target.value;
-    const name = target.name;
-
-    this.setState({
-      [name]: value
-    });
 
     if (target.type === "checkbox") {
-      onSelect(car.id);
+      onSelect(car, value);
     }
   };
 
@@ -38,7 +26,7 @@ class Car extends Component {
             <input
               name="isSelected"
               type="checkbox"
-              checked={this.state.isSelected}
+              checked={car.selected}
               onChange={this.handleInputChange}
             />
           </div>

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./App.css";
 import Cars from "./components/Cars";
 import Search from "./components/Search";
+import Selected from "./components/Selected";
 
 const API = "http://www.json-generator.com/api/json/get/bQJcQFdAGG?indent=4";
 
@@ -25,7 +26,7 @@ class App extends Component {
   }
 
   render() {
-    const { displayedCars } = this.state;
+    const { displayedCars, cars } = this.state;
     return (
       <div>
         <Search handleSearch={this.handleSearch} />
@@ -34,6 +35,7 @@ class App extends Component {
           <Cars carsList={displayedCars} onSelect={this.handleSelect} />
         )}
         <h2> Selected </h2>
+        <Selected selected={cars} />
       </div>
     );
   }
@@ -48,16 +50,15 @@ class App extends Component {
     this.setState({ displayedCars: carsToFilter });
   };
 
-  handleSelect = id => {
-    let selected = [...this.state.selected];
-    if (selected.indexOf(id) > -1) {
-      selected.pop(id);
-    } else {
-      selected.push(id);
+  handleSelect = (car, checked) => {
+    let cars = [...this.state.cars];
+    const index = cars.indexOf(car);
+    console.log("Selected: ", car, " ", checked);
+    if (index > -1) {
+      cars[index].selected = checked;
     }
-    console.log("Selected count: ", selected.length);
 
-    this.setState({ selected: selected });
+    this.setState({ cars: cars });
   };
 }
 
