@@ -1,15 +1,11 @@
 import React, { Component } from "react";
+import Checkbox from "./Checkbox";
 
 class Car extends Component {
-  handleInputChange = event => {
+  onChecked = checked => {
     const { car, onSelect } = this.props;
 
-    const target = event.target;
-    const value = target.type === "checkbox" ? target.checked : target.value;
-
-    if (target.type === "checkbox") {
-      onSelect(car, value);
-    }
+    onSelect(car, checked);
   };
 
   render() {
@@ -23,12 +19,7 @@ class Car extends Component {
           <img className="card-img-top" src={car.image} alt={car.name} />
           <div className="card-body">
             <h5 className="card-title">{car.name}</h5>
-            <input
-              name="isSelected"
-              type="checkbox"
-              checked={car.selected}
-              onChange={this.handleInputChange}
-            />
+            <Checkbox onChecked={this.onChecked} checked={car.selected} />
           </div>
         </div>
       </div>
